@@ -32,6 +32,8 @@ def get_user_name():
 
 
 def main():
+	username = get_user_name()
+
 	pygame.init()
 	w, h = 800, 320
 	scr = pygame.display.set_mode((w, h))
@@ -40,7 +42,7 @@ def main():
 	# Make an ML Model to train and test with live
 	# XGBoost Classifier Example
 	model = XGBClassifier(eval_metric='logloss')
-	clr = Live_Classifier(model, name="XG", color=(0,102,51), user_name=get_user_name())
+	clr = Live_Classifier(model, name="XG", color=(0,102,51), user_name=username)
 	m = MyoClassifier(clr, mode=emg_mode.PREPROCESSED, hist_len=10)
 
 	hnd = EMGHandler(m)
@@ -50,7 +52,7 @@ def main():
 	m.add_raw_pose_handler(dino_handler)
 
 	# Set Myo LED color to model color
-	m.set_leds(m.cls.color, m.cls.color)
+	m.set_leds((255, 0, 0), (255, 255, 0))
 	# Set pygame window name
 	pygame.display.set_caption(m.cls.name)
 
